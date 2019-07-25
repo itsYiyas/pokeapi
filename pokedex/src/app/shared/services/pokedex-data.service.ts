@@ -12,8 +12,8 @@ import {GetPokemonDataResult} from "../interfaces/getPokemonDataResult";
   providedIn: 'root'
 })
 export class PokedexDataService {
-  currentPokemon = new ReplaySubject<GetPokemonDataResult>(1);
-  currentPokemon$ = this.currentPokemon.asObservable();
+  currentPokemonSubject = new ReplaySubject<GetPokemonDataResult>(1);
+  currentPokemon$ = this.currentPokemonSubject.asObservable();
 
   currentPokemonListSubject = new ReplaySubject<Array<PokemonData>>(1);
   currentPokemonList$ = this.currentPokemonListSubject.asObservable();
@@ -29,11 +29,12 @@ export class PokedexDataService {
       data => {
         if (data) {
           const foundPokemon = data.find(x => x.name === name).result;
+          this.currentPokemonSubject.next(foundPokemon);
           if (foundPokemon) { return; }
         }
         this.getPokemonData(name).subscribe(
           pokemonData => {
-            this.currentPokemon.next(pokemonData);
+            this.currentPokemonSubject.next(pokemonData);
           }
         )
       }
