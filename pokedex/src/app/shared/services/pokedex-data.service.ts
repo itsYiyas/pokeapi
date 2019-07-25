@@ -29,8 +29,10 @@ export class PokedexDataService {
       data => {
         if (data) {
           const foundPokemon = data.find(x => x.name === name).result;
-          this.currentPokemonSubject.next(foundPokemon);
-          if (foundPokemon) { return; }
+          if (foundPokemon) {
+            this.currentPokemonSubject.next(foundPokemon);
+            return;
+          }
         }
         this.getPokemonData(name).subscribe(
           pokemonData => {
