@@ -13,80 +13,78 @@
   border-radius: 15px;
   margin: 10px;
   font-family: Arial;
-
-
   .pokemon_title {
   }
-  .pokemon_type {
-    border-radius: 10px;
-    border: 1px solid black;
-    text-align: center;
-    width:100px;
-    display: inline-block;
-  
-    &.poison {
-      background: purple;
-      color: white;
-    }
-    &.grass {
-      background: green;
-      color: white;
-    }
-    &.fire {
-      background: red;
-      color: white;
-    }
-    &.water {
-      background: blue;
-      color: white;
-    }
-    &.flying {
-      background: gray;
-      color: black;
-    }
-    &.bug {
-      background: lightgreen;
-      color: white;
-    }
-    &.normal {
-      background: lightgray;
-      color: black;
-    }
-    &.electric {
-      background: yellow;
-      color: black;
-    }
-    &.ground {
-      background: sandybrown;
-      color: black;
-    }
-    &.psychic {
-      background: rebeccapurple;
-      color: white;
-    }
-    &.ice {
-      background: aliceblue;
-      color: black;
-    }
-    &.rock {
-      background: brown;
-      color: white;
-    }
-    &.fighting {
-      background: saddlebrown;
-      color: white;
-    }
-    &.dragon {
-      background: lightblue;
-      color: black;
-    }
-    &.ghost {
-      background: #341d68;
-      color: white;
-    }
-    &.fairy {
-      background: pink;
-      color: black;
-    }
+}
+.pokemon_type {
+  border-radius: 10px;
+  border: 1px solid black;
+  text-align: center;
+  width:100px;
+  display: inline-block;
+
+  &.poison {
+    background: purple;
+    color: white;
+  }
+  &.grass {
+    background: green;
+    color: white;
+  }
+  &.fire {
+    background: red;
+    color: white;
+  }
+  &.water {
+    background: blue;
+    color: white;
+  }
+  &.flying {
+    background: gray;
+    color: black;
+  }
+  &.bug {
+    background: lightgreen;
+    color: white;
+  }
+  &.normal {
+    background: lightgray;
+    color: black;
+  }
+  &.electric {
+    background: yellow;
+    color: black;
+  }
+  &.ground {
+    background: sandybrown;
+    color: black;
+  }
+  &.psychic {
+    background: rebeccapurple;
+    color: white;
+  }
+  &.ice {
+    background: aliceblue;
+    color: black;
+  }
+  &.rock {
+    background: brown;
+    color: white;
+  }
+  &.fighting {
+    background: saddlebrown;
+    color: white;
+  }
+  &.dragon {
+    background: lightblue;
+    color: black;
+  }
+  &.ghost {
+    background: #341d68;
+    color: white;
+  }
+  &.fairy {
+    background: pink;
+    color: black;
   }
 }
