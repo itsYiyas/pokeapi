@@ -1,0 +1,12 @@
+nltk_data
+deployment/zip
+.idea/
+*/dist/*
+*/node_modules/*
+*/__pycache__/*
+lambdas/*
+!lambda_function.py
+venv/
+csharp/RedditSentiment/.vs/
+csharp/RedditSentiment/RedditSentiment/bin/
+csharp/RedditSentiment/RedditSentiment/obj/
