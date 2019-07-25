@@ -43,7 +43,15 @@ export class PokedexDataService {
     )
   }
 
-  getAllPokemon() {
+  getAllPokemon(force?: boolean) {
+
+    // @ToDo maybe force every 24 hours or something
+    this.currentPokemonList$.subscribe(
+      data => {
+        if (data && !force) {
+          return;
+        }
+
     this.api.getAllPokemon().pipe(
       map(
         (data: GetAllPokemonResult) => {
@@ -64,6 +72,7 @@ export class PokedexDataService {
 
       }
     )
+    })
   }
 
   getPokemonData(name: string): Observable<GetPokemonDataResult> {

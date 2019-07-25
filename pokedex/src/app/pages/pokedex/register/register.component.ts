@@ -14,8 +14,6 @@ export class RegisterComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-
-
     this.pokedexdataService.getAllPokemon();
   }
 
