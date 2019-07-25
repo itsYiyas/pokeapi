@@ -1,7 +1,18 @@
-<p>register works!</p>
-<div *ngFor="let pokemon of currentPokemonList$ | async">
-  <p>
-    {{pokemon.url}}
-  </p>
-  <img src='{{pokemon.resolved.sprites.front_default}}'>
+<div class="pokemon_table">
+  <div routerLink='pokemon/{{pokemon.name}}' class='pokemon_card' *ngFor="let pokemon of currentPokemonList$ | async">
+    <p class="pokemon_title">
+      {{pokemon.name[0].toUpperCase() + pokemon.name.slice(1, pokemon.name.length)}}
+    </p>
+    <ng-container *ngIf="pokemon.result">
+      <img src='{{pokemon.result.sprites.front_default}}'>
+      <div>
+        <p *ngIf="pokemon.result.types[0]" class="pokemon_type {{pokemon.result.types[0].type.name}}">
+          {{pokemon.result.types[0].type.name}}
+        </p>
+        <p *ngIf="pokemon.result.types[1]" class="pokemon_type {{pokemon.result.types[1].type.name}}">
+          {{pokemon.result.types[1].type.name}}
+        </p>
+      </div>
+    </ng-container>
+  </div>
 </div>

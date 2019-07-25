@@ -14,7 +14,7 @@ export class ApiService {
   ) { }
 
   getAllPokemon(): Observable<GetAllPokemonResult> {
-    return this.http.get<GetAllPokemonResult>('https://pokeapi.co/api/v2/pokemon/?limit=20');
+    return this.http.get<GetAllPokemonResult>('https://pokeapi.co/api/v2/pokemon/?limit=151');
   }
 
   getPokemon(name: string): Observable<any> {

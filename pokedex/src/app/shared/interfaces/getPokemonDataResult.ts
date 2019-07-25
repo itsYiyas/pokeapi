@@ -26,6 +26,14 @@ export interface GetPokemonDataResult {
     front_shiny_female: string;
   }
   stats: Array<any>;
-  types: Array<any>;
+  types: Array<PokemonType>;
   weight: number;
+}
+
+interface PokemonType {
+  slot: number;
+  type: {
+    name: string,
+    url: string
+  }
 }

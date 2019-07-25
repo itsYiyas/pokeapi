@@ -12,6 +12,4 @@ export class Pokemon {
     this.name = data.name;
     this.url = data.url;
   }
-
-  get_
 }
