@@ -1,4 +1,15 @@
 <p>pokemon-view works!</p>
 <div *ngIf="(currentPokemon$ | async) as currentPokemon">
   {{currentPokemon.name}}
+  <ng-container *ngIf="currentPokemon">
+    <img src='{{currentPokemon.sprites.front_default}}'>
+    <div>
+      <p *ngIf="currentPokemon.types[0]" class="pokemon_type {{currentPokemon.types[0].type.name}}">
+        {{currentPokemon.types[0].type.name}}
+      </p>
+      <p *ngIf="currentPokemon.types[1]" class="pokemon_type {{currentPokemon.types[1].type.name}}">
+        {{currentPokemon.types[1].type.name}}
+      </p>
+    </div>
+  </ng-container>
 </div>

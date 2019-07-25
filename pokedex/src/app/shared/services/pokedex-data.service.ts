@@ -2,9 +2,11 @@ import { Injectable } from '@angular/core';
 import {ApiService} from "./api.service";
 import {PokemonData} from "../interfaces/pokemon-data";
 import {GetAllPokemonResult} from "../interfaces/getAllPokemonResult";
-import {combineLatest, ReplaySubject} from "rxjs";
+import {combineLatest, merge, Observable, ReplaySubject, Subject, throwError} from "rxjs";
 import {Pokemon} from "../models/pokemon";
-import {map} from "rxjs/operators";
+import {catchError, debounceTime, map, withLatestFrom} from "rxjs/operators";
+import {isNotNullOrUndefined} from "codelyzer/util/isNotNullOrUndefined";
+import {GetPokemonDataResult} from "../interfaces/getPokemonDataResult";
 
 @Injectable({
   providedIn: 'root'
@@ -12,68 +14,60 @@ import {map} from "rxjs/operators";
 export class PokedexDataService {
   pokemonResolvedList = new Array<string>();
 
+  currentPokemon = new ReplaySubject<GetPokemonDataResult>(1);
+  currentPokemon$ = this.currentPokemon.asObservable();
+
   currentPokemonSearchSubject = new ReplaySubject<string>(1);
 
-  currentPokemonSubject = new ReplaySubject<Array<PokemonData>>(1);
-  currentPokemonList$ = this.currentPokemonSubject.asObservable();
-
-  currentPokemon$ = combineLatest(
-    this.currentPokemonSearchSubject.asObservable(),
-    this.currentPokemonList$
-  ).pipe(
-    map(
-      (data: [
-        string,
-        Array<PokemonData>
-        ]) => {
-        const searchTerm = data[0];
-        const pokemonList = data[1];
-        const results = pokemonList.filter(x => x.name === searchTerm);
-        return pokemonList.filter(x => x.name === searchTerm)[0];
-      }
-    )
-  );
+  currentPokemonListSubject = new ReplaySubject<Array<PokemonData>>(1);
+  currentPokemonList$ = this.currentPokemonListSubject.asObservable();
 
   constructor(
     private api: ApiService
-  ) { }
+  ) {
+    this.currentPokemonListSubject.next(undefined);
+  }
 
   findPokemon(name: string) {
-    this.currentPokemonSearchSubject.next(name);
+    this.currentPokemonList$.subscribe(
+      data => {
+        if (data === undefined) {
+          this.getPokemonData(name).subscribe(
+            pokemonData => {
+              this.currentPokemon.next(pokemonData);
+            }
+          )
+        } else {
+          this.currentPokemon.next(data.find(x => x.name === name).result);
+        }
+      }
+    )
   }
 
   getAllPokemon() {
     this.api.getAllPokemon().pipe(
       map(
         (data: GetAllPokemonResult) => {
-          console.log(data);
           for (const pokemon of data.results) {
             this.api.getPokemon(pokemon.name).subscribe(
               pokeData => {
                 pokemon.result = pokeData;
-                this.pokemonResolvedList.push(pokemon.name);
               }
             );
           }
-
           return data;
         }
       )
     )
       .subscribe(
       (data: GetAllPokemonResult) => {
-        console.log(data);
-        this.currentPokemonSubject.next(data.results);
+        this.currentPokemonListSubject.next(data.results);
 
       }
     )
   }
 
-  getPokemonData(name: string) {
-    this.api.getPokemon(name).subscribe(
-      data => {
-        console.log(data);
-      }
-    );
+  getPokemonData(name: string): Observable<GetPokemonDataResult> {
+    return this.api.getPokemon(name);
   }
 }
