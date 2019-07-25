@@ -4,6 +4,7 @@ import {PokemonData} from "../interfaces/pokemon-data";
 import {GetAllPokemonResult} from "../interfaces/getAllPokemonResult";
 import {ReplaySubject} from "rxjs";
 import {Pokemon} from "../models/pokemon";
+import {map} from "rxjs/operators";
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +19,23 @@ export class PokedexDataService {
   ) { }
 
   getAllPokemon() {
-    this.api.getAllPokemon().subscribe(
+    this.api.getAllPokemon().pipe(
+      map(
+        (data: GetAllPokemonResult) => {
+          console.log(data);
+          for (const pokemon of data.results) {
+            this.api.getPokemon(pokemon.name).subscribe(
+              pokeData => {
+                pokemon.resolved = pokeData;
+              }
+            );
+          }
+
+          return data;
+        }
+      )
+    )
+      .subscribe(
       (data: GetAllPokemonResult) => {
         console.log(data);
         this.currentPokemonSubject.next(data.results);
