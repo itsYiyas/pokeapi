@@ -1,0 +1,50 @@
+{
+  "extends": [
+    "rxjs-tslint-rules"
+  ],
+  "rulesDirectory": [
+    "codelyzer"
+  ],
+  "rules": {
+    "rxjs-add": { "severity": "error" },
+    "rxjs-no-unused-add": { "severity": "error" },
+    "rxjs-no-create": false,
+    "rxjs-no-do": true,
+    "rxjs-no-tap": true,
+    "rxjs-no-unsafe-switchmap": {"severity": "error"},
+    "rxjs-no-internal": true,
+    "rxjs-ban-observables": {"severity": "error"},
+    "rxjs-no-unsafe-first": true,
+    "rxjs-collapse-imports": true,
+    "rxjs-pipeable-operators-only": true,
+    "rxjs-no-static-observable-methods": true,
+    "rxjs-proper-imports": true,
+    "rxjs-prefer-observer": true,
+    "rxjs-no-nested-subscribe": true,
+    "rxjs-prefer-async-pipe": true,
+    "rxjs-no-subclass": { "severity": "error" },
+    "rxjs-no-ignored-notifier": true,
+    "rxjs-no-ignored-replay-buffer": true,
+    "rxjs-no-exposed-subjects": true,
+    "rxjs-suffix-subjects": true,
+    "rxjs-no-connectable": true,
+    "rxjs-no-ignored-observable": true,
+    "rxjs-no-async-subscribe": true,
+    "rxjs-no-ignored-subscription": false,
+    "rxjs-no-explicit-generics": true,
+    "rxjs-finnish": true,
+    "rxjs-no-compat": true,
+    "rxjs-no-sharereplay": {
+      "options": [
+        {
+          "allowConfig": true
+        }
+      ],
+      "severity": "error"
+    },
+    "rxjs-no-subject-unsubscribe": true,
+    "rxjs-no-unbound-methods": true,
+    "rxjs-no-unsafe-catch": true,
+    "rxjs-no-unsafe-takeuntil": true
+  }
+}
